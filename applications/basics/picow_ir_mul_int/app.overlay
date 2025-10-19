@@ -1,0 +1,32 @@
+/ {
+    chosen {
+        zephyr,console = &cdc_acm_uart0;
+    };
+
+    ir_sensors {
+        compatible = "gpio-keys";
+        
+        ir_sensor_1: ir_sensor_1_input {
+            gpios = <&gpio0 7 GPIO_ACTIVE_HIGH>;
+            label = "IR Sensor 1 Input";
+        };
+
+        ir_sensor_2: ir_sensor_2_input {
+            gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>;
+            label = "IR Sensor 2 Input";
+        };
+
+        ir_sensor_3: ir_sensor_3_input {
+            gpios = <&gpio0 22 GPIO_ACTIVE_HIGH>;
+            label = "IR Sensor 3 Input";
+        };
+    };
+};
+
+&zephyr_udc0 {
+    cdc_acm_uart0: cdc_acm_uart0 {
+        compatible = "zephyr,cdc-acm-uart";
+        label = "CDC_ACM_0";
+        status = "okay";
+    };
+};

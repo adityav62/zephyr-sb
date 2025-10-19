@@ -1,0 +1,23 @@
+/ {
+    chosen {
+        zephyr,console = &cdc_acm_uart0;
+    };
+};
+
+&i2c0 {
+    status = "okay";
+    mpu6050: mpu6050@68 {
+        compatible = "invensense,mpu6050";
+        reg = <0x68>;
+        label = "MPU6050";
+        status = "okay";
+    };
+};
+
+&zephyr_udc0 {
+    cdc_acm_uart0: cdc_acm_uart0 {
+        compatible = "zephyr,cdc-acm-uart";
+        label = "CDC_ACM_0";
+        status = "okay";
+    };
+};

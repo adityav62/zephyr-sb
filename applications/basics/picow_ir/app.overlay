@@ -1,0 +1,22 @@
+/ {
+    chosen {
+        zephyr,console = &cdc_acm_uart0;
+    };
+
+    ir_sensor {
+        compatible = "gpio-keys";
+        ir_sensor_input_label: ir_sensor_input {
+            gpios = <&gpio0 22 GPIO_ACTIVE_HIGH>;
+            label = "IR Sensor Input";
+        };
+    };
+
+};
+
+&zephyr_udc0 {
+    cdc_acm_uart0: cdc_acm_uart0 {
+        compatible = "zephyr,cdc-acm-uart";
+        label = "CDC_ACM_0";
+        status = "okay";
+    };
+};

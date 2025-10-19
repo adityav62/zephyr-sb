@@ -1,0 +1,66 @@
+/ {
+    chosen {
+        zephyr,console = &cdc_acm_uart0;
+};
+
+    tb6612fng_pins {
+        compatible = "gpio-keys";
+        
+        ain1_pin_label: ain1_pin {
+            gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>;
+            label = "TB6612FNG AIN1";
+        };
+        ain2_pin_label: ain2_pin {
+            gpios = <&gpio0 1 GPIO_ACTIVE_HIGH>;
+            label = "TB6612FNG AIN2";
+        };
+        bin1_pin_label: bin1_pin {
+            gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>;
+            label = "TB6612FNG BIN1";
+        };
+        bin2_pin_label: bin2_pin {
+            gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>;
+            label = "TB6612FNG BIN2";
+        };
+    };
+
+    tb6612fng_pwm {
+        compatible = "pwm-leds";
+        pwm_a_label: pwm_a {
+            pwms = <&pwm 0 PWM_MSEC(20) PWM_POLARITY_NORMAL>;
+            label = "TB6612FNG PWMA"; 
+        };
+        pwm_b_label: pwm_b {
+            pwms = <&pwm 5 PWM_MSEC(20) PWM_POLARITY_NORMAL>;
+            label = "TB6612FNG PWMB";
+        };
+    };
+
+};
+
+&pwm {
+    status = "okay";
+    pinctrl-0 = <&pwm_ch05_default>;
+    pinctrl-names = "default";
+};
+
+
+&pinctrl{
+    pwm_ch05_default: pwm_ch05_default{
+        group1{
+            pinmux = <PWM_0A_P0>;
+        };
+        group2{
+            pinmux = <PWM_2B_P5>;
+        };
+    };
+};
+
+
+&zephyr_udc0 {
+    cdc_acm_uart0: cdc_acm_uart0 {
+        compatible = "zephyr,cdc-acm-uart";
+        label = "CDC_ACM_0";
+        status = "okay";
+    };
+};

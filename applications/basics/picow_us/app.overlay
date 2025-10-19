@@ -1,0 +1,26 @@
+/ {
+    chosen {
+        zephyr,console = &cdc_acm_uart0;
+    };
+
+    hcsr04 {
+        compatible = "gpio-keys";
+        trig_pin_label: trig_pin {
+            gpios = <&gpio0 17 GPIO_ACTIVE_HIGH>;
+            label = "HC-SR04 Trigger";
+        };
+        echo_pin_label: echo_pin {
+            gpios = <&gpio0 16 GPIO_ACTIVE_HIGH>;
+            label = "HC-SR04 Echo";
+        };
+    };
+
+};
+
+&zephyr_udc0 {
+    cdc_acm_uart0: cdc_acm_uart0 {
+        compatible = "zephyr,cdc-acm-uart";
+        label = "CDC_ACM_0";
+        status = "okay";
+    };
+};

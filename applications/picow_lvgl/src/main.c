@@ -7,8 +7,8 @@
 #include <zephyr/drivers/uart.h>
 
 #include <zephyr/device.h>
-//#include <lvgl.h>
-#include <zephyr/drivers/display/display_st7735r.h>
+#include <lvgl.h>
+//#include <zephyr/drivers/display/display_st7735r.h>
 #include <stdio.h>
 #include <string.h>
 #include <zephyr/sys/printk.h>

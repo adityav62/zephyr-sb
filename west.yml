@@ -9,4 +9,5 @@ manifest:
           - hal_infineon
           - mbedtls
           - hal_rpi_pico
+          - lvgl
     

@@ -1,48 +1,38 @@
 #include <zephyr/kernel.h>
+#include <zephyr/usb/usb_device.h>
+#include <zephyr/drivers/uart.h>
 #include <zephyr/device.h>
 #include <zephyr/drivers/led_strip.h>
-#include <zephyr/usb/usb_device.h>
-#include <string.h>
 
 #define NUM_LEDS 84
 
 static struct led_rgb pixels[NUM_LEDS];
 
-static const struct device *strip =
-    DEVICE_DT_GET(DT_NODELABEL(mkr_rgb_board));
+static const struct device *usb_acm = DEVICE_DT_GET(DT_CHOSEN(zephyr_console));
+static const struct device *strip = DEVICE_DT_GET(DT_NODELABEL(mkr_rgb_board));
 
-int main(void)
-{
-    bool on = false;
+int main(void) {
+    int ret;
 
-    if (!device_is_ready(strip)) {
-        printk("LED strip not ready\n");
+    if (!device_is_ready(usb_acm)) {
+        printk("CDC ACM device not ready\r\n");
         return 0;
     }
 
-    /* Start from a known OFF state */
-    memset(pixels, 0, sizeof(pixels));
+    // Enable USB device
+    ret = usb_enable(NULL);
+    if (ret != 0) {
+        printk("Failed to enable USB\r\n");
+        return 0;
+    }
+
+    for (int i = 0; i < NUM_LEDS; i++) {
+        pixels[i].r = 0x10;
+        pixels[i].g = 0x00;
+        pixels[i].b = 0x20;
+    }
+
     led_strip_update_rgb(strip, pixels, NUM_LEDS);
 
-    while (1) {
-        on = !on;
-
-        if (on) {
-            /* ALL ON (white, dim) */
-            for (int i = 0; i < NUM_LEDS; i++) {
-                pixels[i].r = 0x20;
-                pixels[i].g = 0x20;
-                pixels[i].b = 0x20;
-            }
-            printk("LEDs ON\r\n");
-        } else {
-            /* ALL OFF */
-            memset(pixels, 0, sizeof(pixels));
-            printk("LEDs OFF\r\n");
-        }
-
-        led_strip_update_rgb(strip, pixels, NUM_LEDS);
-
-        k_sleep(K_SECONDS(5));
-    }
+    return 0;
 }

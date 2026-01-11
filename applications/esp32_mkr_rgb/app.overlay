@@ -6,6 +6,7 @@
     };
 };
 
+/* Attach MKR RGB Shield as a child of SPI2 */
 &spi2 {
     status = "okay";
     pinctrl-0 = <&spim2_default>;
@@ -13,16 +14,10 @@
 
     mkr_rgb_board: apa102@0 {
         compatible = "apa,apa102";
-        reg = <0>;                       /* CS line */
-        spi-max-frequency = <8000000>;
+        spi-max-frequency = <16000000>;
         chain-length = <84>;
-        spi-cpol;
-        spi-cpha;
-        color-mapping = <
-            LED_COLOR_ID_RED
-            LED_COLOR_ID_GREEN
-            LED_COLOR_ID_BLUE
-        >;
+        reg = <0>;
+        color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED  LED_COLOR_ID_BLUE>;
         status = "okay";
     };
 };

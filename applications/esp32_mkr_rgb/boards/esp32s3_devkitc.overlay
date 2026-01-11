@@ -1,0 +1,22 @@
+#include <zephyr/dt-bindings/led/led.h>
+
+/ {
+    chosen {
+        zephyr,console = &uart0;
+    };
+};
+
+/* Attach MKR RGB Shield as a child of SPI2 */
+&spi2 {
+    status = "okay";
+    pinctrl-0 = <&spim2_default>;
+    pinctrl-names = "default";
+
+    mkr_rgb_board: apa102@0 {
+        compatible = "apa,apa102";
+        spi-max-frequency = <8000000>;
+        chain-length = <84>;
+        color-mapping = <LED_COLOR_ID_RED LED_COLOR_ID_GREEN LED_COLOR_ID_BLUE>;
+        status = "okay";
+    };
+};

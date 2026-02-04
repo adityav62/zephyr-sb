@@ -12,10 +12,11 @@ manifest:
           - hal_rpi_pico
           - lvgl
 
-#    # WAMR is added as a separate project, not a module
-#    - name: wasm-micro-runtime
-#      url: https://github.com/bytecodealliance/wasm-micro-runtime
-#      revision: main
-#      import:
-#        path: modules/wasm-micro-runtime
+    # WAMR is added as a separate project, not a module
+    - name: wasm-micro-runtime
+      url: https://github.com/bytecodealliance/wasm-micro-runtime
+      revision: main
+      path: modules/wasm-micro-runtime
+      import:
+        
     

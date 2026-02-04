@@ -1,0 +1,19 @@
+# without this, Zephyr does not recognize the default KConfigs and just considers this new file (this may not look like it, but is a comment)
+
+source "Kconfig.zephyr" 
+
+config MQTT_BROKER_HOSTNAME
+    string "MQTT broker hostname"
+    default "broker.hivemq.com"
+
+config MQTT_BROKER_PORT
+    int "MQTT broker port"
+    default 1883
+
+config MQTT_SUB_TOPIC
+    string "MQTT Subscribe Topic"
+    default "rts/robot/pid"
+
+config MQTT_PUB_TOPIC
+    string "MQTT Publish Topic"
+    default "rts/robot/status"
